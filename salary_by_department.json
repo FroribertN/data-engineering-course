@@ -1,0 +1,14 @@
+[
+  {
+    "department": "Engineering",
+    "salary_avg": 77500.0
+  },
+  {
+    "department": "HR",
+    "salary_avg": 60000.0
+  },
+  {
+    "department": "Sales",
+    "salary_avg": 67500.0
+  }
+]

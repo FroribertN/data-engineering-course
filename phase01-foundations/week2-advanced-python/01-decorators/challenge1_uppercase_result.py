@@ -27,15 +27,16 @@ def uppercase_result(func: Callable[..., Any])  -> Callable[..., Any]:
     
     return wrapper
 
+
+# ===========================
+# Test the decorated function
+# ===========================
+
 @uppercase_result
 def get_name() -> str:
     """Returns the name of the user"""
     return "alice"
 
-
-# ===========================
-# Test the decorated function
-# ===========================
 
 if __name__ == "__main__":
     print(f"Result: {get_name()}") 

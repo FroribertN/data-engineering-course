@@ -1,52 +1,52 @@
 import time
 from functools import wraps
-from typing import Callable, Any, Dict, Tuple
+from typing import Callable, Any, List
 
 def cache_result(func: Callable) -> Callable:
-    """
-    A decorator that caches function results based on their input arguments.
-
-    DE Context:
-    Caching is essential when dealing with expensive API calls or heavy data transformations.
-    This pattern ensures we only "pay" the computation cost once for any unique set of inputs.
-    """
-    # 1. Initialize a private dictionary to store cached results
-    # Key = Tuple of function arguments, Value = Result of the function call
-    _cache: Dict[Tuple[Any, ...], Any] = {}
+    cache = {}
 
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
-        # 2. Create a hashable key from the function arguments
-        # We convert kwargs to a sorted tuple of items because dictionaries are not hashable
-        cache_key = (args, tuple(sorted(kwargs.items())))
+        # Create a hashable key from the function arguments
+        # Args iis already a tuple (hashable)
+        # kwargs needs to be converted to a tuple of sorted items (hashable)
+        key = (args, tuple(sorted(kwargs.items())))
 
-        # 3. Check if we seen  these argument before
-        if cache_key not in _cache:
-            # First time seeing these args: execute the function and store the result in the cache
-            _cache[cache_key] = func(*args, **kwargs)
-
-        # 4. Return the cached result
-        return _cache[cache_key]
+        if key in cache:
+            print(f"Cache hit for {func.__name__} with args {args}")
+            return cache[key]
+        
+        print(f"Cache miss - computing {func.__name__} {args}")
+        result = func(*args, **kwargs)
+        cache[key] = result
+        return result
     
+    # Add a method to clear the cache
+    def cache_clear():
+        cache.clear()
+        print("Cache cleared")
+
+    wrapper.cache_clear = cache_clear
+    wrapper._cache = cache  # Expose the cache for testing purposes
+
     return wrapper
 
-# =========================================
-#                 TESTING
-# =========================================
+
+# ======================================
+#                TESTING
+# ======================================
 
 @cache_result
 def expensive_calculation(x: int, y: int) -> int:
-    """Simulates a heavy computational task"""
-    time.sleep(2)  # Simulate a delay
-    return x * y
+    print(f"      COMPUTING {x} + {y}...")
+    time.sleep(2)  # Simulate a time-consuming calculation
+    return x + y
 
+print(expensive_calculation(5, 3)) # Takes 2 seconds, cache miss
+print(expensive_calculation(5, 3)) # Instant, cache hit
+print(expensive_calculation(5, 4)) # Takes 2 seconds, cache miss
+print(expensive_calculation(5, 3)) # Instant, cache hit
 
-if __name__ == "__main__":
-    # First call: Ttakes 2 seconds
-    print(f"Call 1 (5, 3): {expensive_calculation(5, 3)}") 
-
-    # Second call with same args: Should be instant
-    print(f"Call 2 (5, 3): {expensive_calculation(5, 3)}")
-
-    # Third call (new args): Takes 2 seconds again
-    print(f"Call 3 (5, 4): {expensive_calculation(5, 4)}")
+# Clear the cache and test again
+expensive_calculation.cache_clear() # Clear the cache
+print(expensive_calculation(5, 3)) # Takes 2 seconds, cache miss after clearing

@@ -60,6 +60,7 @@ class Payment(ABC):
     @abstractmethod
     def get_receipt(self) -> str:
         """Returns a formatted receipt for the transaction."""
+        pass
 
     def record_transaction(self, amount: float):
         """A concrete method shared by all payment types to log the action."""

@@ -1,0 +1,6 @@
+{"record": {"id": 3, "user_id": "u1", "amount": -50.0, "category": "refund"}, "stage": "validate", "error_type": "ValueError", "error_message": "Validation failed for amount=-50.0", "timestamp": "2026-02-19T10:21:07.982429"}
+{"record": {"id": 5, "amount": 120.0, "category": "sale"}, "stage": "validate", "error_type": "ValueError", "error_message": "Missing required field(s): ['user_id']", "timestamp": "2026-02-19T10:21:07.983376"}
+{"record": {"raw_line": "invalid json line", "line_number": 6}, "stage": "extract", "error_type": "JSONDecodeError", "error_message": "Expecting value: line 1 column 1 (char 0)", "timestamp": "2026-02-19T10:21:07.994961"}
+{"record": {"id": 3, "user_id": "u1", "amount": -50.0, "category": "refund"}, "stage": "validate", "error_type": "ValueError", "error_message": "Validation failed for amount=-50.0", "timestamp": "2026-02-19T10:21:18.466379"}
+{"record": {"id": 5, "amount": 120.0, "category": "sale"}, "stage": "validate", "error_type": "ValueError", "error_message": "Missing required field(s): ['user_id']", "timestamp": "2026-02-19T10:21:18.467459"}
+{"record": {"raw_line": "invalid json line", "line_number": 6}, "stage": "extract", "error_type": "JSONDecodeError", "error_message": "Expecting value: line 1 column 1 (char 0)", "timestamp": "2026-02-19T10:21:18.470155"}

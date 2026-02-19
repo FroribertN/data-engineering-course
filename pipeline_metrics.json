@@ -1,0 +1,11 @@
+{
+  "total_records": 7,
+  "successful_records": 4,
+  "failed_records": 3,
+  "skipped_records": 0,
+  "validation_errors": 2,
+  "transformation_errors": 0,
+  "load_errors": 0,
+  "duration_seconds": 0.035180091857910156,
+  "success_rate_percent": 57.14
+}

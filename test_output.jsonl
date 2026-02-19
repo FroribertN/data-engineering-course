@@ -1,0 +1,4 @@
+{"id": 1, "user_id": "u1", "amount": 100.5, "category": "SALE"}
+{"id": 2, "user_id": "u2", "amount": 250.0, "category": "SALE"}
+{"id": 4, "user_id": "u3", "amount": 75.25, "category": "SALE"}
+{"id": 6, "user_id": "u2", "amount": 300.0, "category": "SALE"}
